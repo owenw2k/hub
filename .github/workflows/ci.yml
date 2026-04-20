@@ -84,12 +84,5 @@ jobs:
             SCREENSHOT_MD="${SCREENSHOT_MD}**${label}**"$'\n'"![${label}](${url})"$'\n\n'
           done
           current_body=$(gh pr view "$PR_NUMBER" --json body --jq '.body')
-          new_body=$(BODY="$current_body" SCREENSHOTS="$SCREENSHOT_MD" python3 -c '
-import re, os
-body = os.environ["BODY"]
-md = os.environ["SCREENSHOTS"]
-repl = "<!-- screenshots-start -->\n" + md + "<!-- screenshots-end -->"
-result = re.sub(r"<!-- screenshots-start -->.*?<!-- screenshots-end -->", repl, body, flags=re.DOTALL)
-print(result, end="")
-')
+          new_body=$(BODY="$current_body" SCREENSHOTS="$SCREENSHOT_MD" python3 scripts/inject-screenshots.py)
           gh pr edit "$PR_NUMBER" --body "$new_body"

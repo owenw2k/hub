@@ -38,6 +38,13 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium
 
+      - name: Capture screenshots
+        run: |
+          pnpm start &
+          until curl -sf http://localhost:3000 > /dev/null; do sleep 1; done
+          pnpm screenshots
+          pkill -f "next start" || true
+
       - name: Playwright tests
         run: pnpm test:e2e
 

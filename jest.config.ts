@@ -10,7 +10,7 @@ const config: Config = {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
   },
-  testPathIgnorePatterns: ["/node_modules/", "/__tests__/factories/"],
+  testPathIgnorePatterns: ["/node_modules/", "/__tests__/factories/", "/e2e/"],
   collectCoverageFrom: [
     "src/**/*.{ts,tsx}",
     "!src/**/*.d.ts",

@@ -25,177 +25,203 @@ export default function HomePage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-6">
+      <main>
         {/* Hero */}
-        <section aria-labelledby="hero-heading" className="pb-24 pt-20">
-          <p className="mb-4 text-sm font-medium uppercase tracking-widest text-accent">
-            Software engineer
-          </p>
-          <h1
-            id="hero-heading"
-            className="font-heading text-6xl font-bold tracking-tight text-text-primary sm:text-7xl lg:text-8xl"
-          >
-            Building things
-            <br />
-            on the web.
-          </h1>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-text-muted">
-            I like working across the full stack — from database schemas to UI details. Currently
-            building a blog, a travel map, and whatever else seems interesting.
-          </p>
-          <div className="mt-10 flex flex-wrap gap-3">
-            <ButtonLink
-              href="https://github.com/owenw2k"
-              variant="outline"
-              size="sm"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub profile"
+        <section aria-labelledby="hero-heading" className="relative overflow-hidden">
+          {/* Warm radial glow behind the hero */}
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_10%_20%,color-mix(in_oklch,var(--accent)_8%,transparent),transparent)]" />
+          <div className="relative mx-auto max-w-5xl px-6 pb-28 pt-20">
+            {/* Initials badge */}
+            <div className="mb-8 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-accent font-heading text-xl font-bold text-white">
+              OW
+            </div>
+            <p className="mb-4 text-sm font-medium uppercase tracking-widest text-accent">
+              Software engineer
+            </p>
+            <h1
+              id="hero-heading"
+              className="font-heading text-6xl font-bold tracking-tight text-text-primary sm:text-7xl lg:text-8xl"
             >
-              <ExternalLink className="mr-1.5 h-4 w-4" />
-              GitHub
-            </ButtonLink>
-            <ButtonLink
-              href="mailto:owenw2k@gmail.com"
-              variant="outline"
-              size="sm"
-              aria-label="Send email"
-            >
-              <Mail className="mr-1.5 h-4 w-4" />
-              Email
-            </ButtonLink>
+              Building things
+              <br />
+              on the web.
+            </h1>
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-text-muted">
+              I like working across the full stack — from database schemas to UI details. Currently
+              building a blog, a travel map, and whatever else seems interesting.
+            </p>
+            <div className="mt-10 flex flex-wrap gap-3">
+              <ButtonLink
+                href="https://github.com/owenw2k"
+                variant="outline"
+                size="sm"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub profile"
+              >
+                <ExternalLink className="mr-1.5 h-4 w-4" />
+                GitHub
+              </ButtonLink>
+              <ButtonLink
+                href="mailto:owenw2k@gmail.com"
+                variant="outline"
+                size="sm"
+                aria-label="Send email"
+              >
+                <Mail className="mr-1.5 h-4 w-4" />
+                Email
+              </ButtonLink>
+            </div>
           </div>
         </section>
 
-        {/* Projects */}
-        <section aria-labelledby="projects-heading" className="pb-24">
-          <h2
-            id="projects-heading"
-            className="font-heading text-3xl font-semibold text-text-primary"
-          >
-            Projects
-          </h2>
-          <p className="mt-2 text-text-muted">Things I&apos;ve built and am building.</p>
-          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {projects.map((project) => (
-              <ProjectCard key={project.name} {...project} />
-            ))}
+        {/* Projects — surface tint to break up the background */}
+        <section aria-labelledby="projects-heading" className="bg-surface/60 py-24">
+          <div className="mx-auto max-w-5xl px-6">
+            <div className="flex items-baseline gap-3">
+              <h2
+                id="projects-heading"
+                className="font-heading text-3xl font-semibold text-text-primary"
+              >
+                Projects
+              </h2>
+              <span className="text-sm text-text-muted">
+                Things I&apos;ve built and am building.
+              </span>
+            </div>
+            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+              {projects.map((project) => (
+                <ProjectCard key={project.name} {...project} />
+              ))}
+            </div>
           </div>
         </section>
 
         {/* Behind the Scenes */}
-        <section aria-labelledby="infra-heading" className="pb-24">
-          <h2 id="infra-heading" className="font-heading text-3xl font-semibold text-text-primary">
-            Behind the Scenes
-          </h2>
-          <p className="mt-2 text-text-muted">
-            Supporting services — scrapers, workers, cron jobs.
-          </p>
-          {infraProjects.length === 0 ? (
-            <p className="mt-8 text-sm text-text-muted">Nothing to show yet. Check back soon.</p>
-          ) : (
-            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
-              {infraProjects.map((project) => (
-                <article
-                  key={project.name}
-                  className="flex flex-col gap-4 rounded-xl border border-border bg-surface p-6"
-                >
-                  <div className="flex flex-col gap-1">
-                    <h3 className="font-heading text-xl font-semibold text-text-primary">
-                      {project.name}
-                    </h3>
-                    <p className="text-sm text-text-muted">{project.description}</p>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {project.techStack.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-border px-2.5 py-0.5 text-xs text-text-muted"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="mt-auto pt-2">
-                    <ButtonLink
-                      href={project.githubUrl}
-                      size="sm"
-                      variant="outline"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      View repo
-                    </ButtonLink>
-                  </div>
-                </article>
-              ))}
+        <section aria-labelledby="infra-heading" className="py-24">
+          <div className="mx-auto max-w-5xl px-6">
+            <div className="flex items-baseline gap-3">
+              <h2
+                id="infra-heading"
+                className="font-heading text-3xl font-semibold text-text-primary"
+              >
+                Behind the Scenes
+              </h2>
+              <span className="text-sm text-text-muted">Scrapers, workers, cron jobs.</span>
             </div>
-          )}
+            {infraProjects.length === 0 ? (
+              <p className="mt-8 text-sm text-text-muted">Nothing to show yet. Check back soon.</p>
+            ) : (
+              <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+                {infraProjects.map((project) => (
+                  <article
+                    key={project.name}
+                    className="group relative flex flex-col gap-4 overflow-hidden rounded-xl border border-border bg-surface p-6 transition-shadow hover:shadow-md"
+                  >
+                    <div className="absolute left-0 top-0 h-0.5 w-full bg-gradient-to-r from-accent/50 to-transparent" />
+                    <div className="flex flex-col gap-1">
+                      <h3 className="font-heading text-xl font-semibold text-text-primary">
+                        {project.name}
+                      </h3>
+                      <p className="text-sm text-text-muted">{project.description}</p>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {project.techStack.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full border border-border px-2.5 py-0.5 text-xs text-text-muted"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="mt-auto pt-2">
+                      <ButtonLink
+                        href={project.githubUrl}
+                        size="sm"
+                        variant="outline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        View repo
+                      </ButtonLink>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
+          </div>
         </section>
 
-        {/* Recently Watched */}
-        <section aria-labelledby="watched-heading" className="pb-24">
-          <h2
-            id="watched-heading"
-            className="font-heading text-3xl font-semibold text-text-primary"
-          >
-            Recently Watched
-          </h2>
-          <p className="mt-2 text-text-muted">Latest from Letterboxd.</p>
-          {films.length === 0 ? (
-            <p className="mt-8 text-sm text-text-muted">Waiting on the scraper…</p>
-          ) : (
-            <div className="mt-8 grid grid-cols-3 gap-4 sm:grid-cols-6">
-              {films.slice(0, 6).map((film) => (
-                <a
-                  key={film.letterboxdUrl}
-                  href={film.letterboxdUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex flex-col gap-2"
-                  aria-label={`${film.title} (${film.year}) — ${formatRating(film.rating)}`}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={film.posterUrl}
-                    alt={`${film.title} poster`}
-                    className="aspect-[2/3] w-full rounded-lg object-cover transition-opacity group-hover:opacity-80"
-                  />
-                  <span className="text-xs text-accent" aria-hidden>
-                    {formatRating(film.rating)}
-                  </span>
-                </a>
-              ))}
+        {/* Recently Watched — surface tint */}
+        <section aria-labelledby="watched-heading" className="bg-surface/60 py-24">
+          <div className="mx-auto max-w-5xl px-6">
+            <div className="flex items-baseline gap-3">
+              <h2
+                id="watched-heading"
+                className="font-heading text-3xl font-semibold text-text-primary"
+              >
+                Recently Watched
+              </h2>
+              <span className="text-sm text-text-muted">Latest from Letterboxd.</span>
             </div>
-          )}
+            {films.length === 0 ? (
+              <p className="mt-8 text-sm text-text-muted">Waiting on the scraper…</p>
+            ) : (
+              <div className="mt-8 grid grid-cols-3 gap-4 sm:grid-cols-6">
+                {films.slice(0, 6).map((film) => (
+                  <a
+                    key={film.letterboxdUrl}
+                    href={film.letterboxdUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex flex-col gap-2"
+                    aria-label={`${film.title} (${film.year}) — ${formatRating(film.rating)}`}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={film.posterUrl}
+                      alt={`${film.title} poster`}
+                      className="aspect-[2/3] w-full rounded-lg object-cover shadow-sm transition-all group-hover:scale-[1.03] group-hover:shadow-md"
+                    />
+                    <span className="text-xs text-accent" aria-hidden>
+                      {formatRating(film.rating)}
+                    </span>
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
         </section>
 
         {/* Contact */}
-        <section aria-labelledby="contact-heading" className="pb-24">
-          <h2
-            id="contact-heading"
-            className="font-heading text-3xl font-semibold text-text-primary"
-          >
-            Say hello
-          </h2>
-          <p className="mt-4 max-w-lg text-lg leading-relaxed text-text-muted">
-            Questions, ideas, or just want to say hi — my inbox is open.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <ButtonLink href="mailto:owenw2k@gmail.com" size="sm">
-              <Mail className="mr-1.5 h-4 w-4" />
-              owenw2k@gmail.com
-            </ButtonLink>
-            <ButtonLink
-              href="https://github.com/owenw2k"
-              size="sm"
-              variant="outline"
-              target="_blank"
-              rel="noopener noreferrer"
+        <section aria-labelledby="contact-heading" className="py-24">
+          <div className="mx-auto max-w-5xl px-6">
+            <h2
+              id="contact-heading"
+              className="font-heading text-3xl font-semibold text-text-primary"
             >
-              <ExternalLink className="mr-1.5 h-4 w-4" />
-              GitHub
-            </ButtonLink>
+              Say hello
+            </h2>
+            <p className="mt-4 max-w-lg text-lg leading-relaxed text-text-muted">
+              Questions, ideas, or just want to say hi — my inbox is open.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <ButtonLink href="mailto:owenw2k@gmail.com" size="sm">
+                <Mail className="mr-1.5 h-4 w-4" />
+                owenw2k@gmail.com
+              </ButtonLink>
+              <ButtonLink
+                href="https://github.com/owenw2k"
+                size="sm"
+                variant="outline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ExternalLink className="mr-1.5 h-4 w-4" />
+                GitHub
+              </ButtonLink>
+            </div>
           </div>
         </section>
       </main>

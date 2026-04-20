@@ -41,9 +41,10 @@ jobs:
       - name: Capture screenshots
         run: |
           pnpm start &
+          SERVER_PID=$!
           until curl -sf http://localhost:3000 > /dev/null; do sleep 1; done
           pnpm screenshots
-          pkill -f "next start" || true
+          kill $SERVER_PID && wait $SERVER_PID 2>/dev/null || true
 
       - name: Playwright tests
         run: pnpm test:e2e

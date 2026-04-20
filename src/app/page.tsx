@@ -27,7 +27,11 @@ export default function HomePage() {
 
       <main>
         {/* Hero */}
-        <section aria-labelledby="hero-heading" className="relative overflow-hidden">
+        <section
+          aria-labelledby="hero-heading"
+          className="relative overflow-hidden"
+          data-screenshot="hero"
+        >
           {/* Warm radial glow behind the hero */}
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_10%_20%,color-mix(in_oklch,var(--accent)_8%,transparent),transparent)]" />
           <div className="relative mx-auto max-w-5xl px-6 pb-28 pt-20">
@@ -79,7 +83,11 @@ export default function HomePage() {
         </section>
 
         {/* About + Resume */}
-        <section aria-labelledby="about-heading" className="bg-surface/60 py-24">
+        <section
+          aria-labelledby="about-heading"
+          className="bg-surface/60 py-24"
+          data-screenshot="about"
+        >
           <div className="mx-auto max-w-5xl px-6">
             <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:gap-16">
               {/* Photo */}
@@ -126,7 +134,7 @@ export default function HomePage() {
         </section>
 
         {/* Projects */}
-        <section aria-labelledby="projects-heading" className="py-24">
+        <section aria-labelledby="projects-heading" className="py-24" data-screenshot="projects">
           <div className="mx-auto max-w-5xl px-6">
             <div className="flex items-baseline gap-3">
               <h2
@@ -204,7 +212,11 @@ export default function HomePage() {
         </section>
 
         {/* Recently Watched — surface tint */}
-        <section aria-labelledby="watched-heading" className="bg-surface/60 py-24">
+        <section
+          aria-labelledby="watched-heading"
+          className="bg-surface/60 py-24"
+          data-screenshot="recently-watched"
+        >
           <div className="mx-auto max-w-5xl px-6">
             <div className="flex items-baseline gap-3">
               <h2

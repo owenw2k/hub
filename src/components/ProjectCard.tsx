@@ -19,17 +19,20 @@ export const ProjectCard = ({
   caseStudyUrl,
   techStack,
 }: Props) => (
-  <article className="flex flex-col gap-4 rounded-xl border border-border bg-surface p-6 transition-shadow hover:shadow-md">
-    <div className="flex flex-col gap-1">
+  <article className="group relative flex flex-col gap-4 overflow-hidden rounded-xl border border-border bg-surface p-6 transition-all hover:-translate-y-0.5 hover:shadow-lg">
+    {/* Accent stripe */}
+    <div className="absolute left-0 top-0 h-0.5 w-full bg-gradient-to-r from-accent/60 to-transparent" />
+
+    <div className="flex flex-col gap-1.5">
       <h3 className="font-heading text-xl font-semibold text-text-primary">{name}</h3>
-      <p className="text-sm text-text-muted">{description}</p>
+      <p className="text-sm leading-relaxed text-text-muted">{description}</p>
     </div>
 
     <div className="flex flex-wrap gap-2">
       {techStack.map((tag) => (
         <span
           key={tag}
-          className="rounded-full border border-border px-2.5 py-0.5 text-xs text-text-muted"
+          className="rounded-full border border-border bg-background px-2.5 py-0.5 text-xs text-text-muted"
         >
           {tag}
         </span>

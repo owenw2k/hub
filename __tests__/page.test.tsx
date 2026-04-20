@@ -33,6 +33,19 @@ describe("HomePage", () => {
     ).toBeInTheDocument();
   });
 
+  it("renders the about section", () => {
+    render(<HomePage />);
+    expect(screen.getByRole("heading", { name: "About", level: 2 })).toBeInTheDocument();
+  });
+
+  it("renders the resume download link", () => {
+    render(<HomePage />);
+    expect(screen.getByRole("link", { name: /download resume/i })).toHaveAttribute(
+      "href",
+      "/resume.pdf"
+    );
+  });
+
   it("renders the projects section", () => {
     render(<HomePage />);
     expect(screen.getByRole("heading", { name: "Projects", level: 2 })).toBeInTheDocument();

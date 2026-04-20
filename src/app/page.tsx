@@ -78,30 +78,47 @@ export default function HomePage() {
         {/* About + Resume */}
         <section aria-labelledby="about-heading" className="bg-surface/60 py-24">
           <div className="mx-auto max-w-5xl px-6">
-            <h2
-              id="about-heading"
-              className="font-heading text-3xl font-semibold text-text-primary"
-            >
-              About
-            </h2>
-            <div className="mt-6 max-w-2xl space-y-4 text-lg leading-relaxed text-text-muted">
-              <p>
-                I&apos;m a software engineer who enjoys building things end-to-end: writing the
-                schema, standing up the API, and sweating the UI details. I care about code that is
-                easy to read, systems that are easy to reason about, and products that are actually
-                pleasant to use.
-              </p>
-              <p>
-                Outside of work I&apos;m usually watching films, planning the next trip, or
-                tinkering with a side project that probably won&apos;t ship. This site is one of the
-                ones that did.
-              </p>
-            </div>
-            <div className="mt-8">
-              <ButtonLink href="/resume.pdf" download size="sm">
-                <Download className="mr-1.5 h-4 w-4" />
-                Download resume
-              </ButtonLink>
+            <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:gap-16">
+              {/* Photo */}
+              <div className="shrink-0 lg:w-72">
+                <div className="overflow-hidden rounded-2xl">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/self.jpg"
+                    alt="Owen W"
+                    className="aspect-[3/4] w-full object-cover object-top"
+                  />
+                </div>
+              </div>
+
+              {/* Text */}
+              <div className="flex flex-col gap-6">
+                <h2
+                  id="about-heading"
+                  className="font-heading text-3xl font-semibold text-text-primary"
+                >
+                  About
+                </h2>
+                <div className="space-y-4 text-lg leading-relaxed text-text-muted">
+                  <p>
+                    I&apos;m a software engineer who enjoys building things end-to-end: writing the
+                    schema, standing up the API, and sweating the UI details. I care about code that
+                    is easy to read, systems that are easy to reason about, and products that are
+                    actually pleasant to use.
+                  </p>
+                  <p>
+                    Outside of work I&apos;m usually watching films, planning the next trip, or
+                    tinkering with a side project that probably won&apos;t ship. This site is one of
+                    the ones that did.
+                  </p>
+                </div>
+                <div>
+                  <ButtonLink href="/resume.pdf" download size="sm">
+                    <Download className="mr-1.5 h-4 w-4" />
+                    Download resume
+                  </ButtonLink>
+                </div>
+              </div>
             </div>
           </div>
         </section>

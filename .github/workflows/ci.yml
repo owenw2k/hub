@@ -81,15 +81,15 @@ jobs:
                 -f content="$b64" -f branch="screenshots" > /dev/null
             fi
             url="https://raw.githubusercontent.com/${REPO}/screenshots/screenshots/${PR_NUMBER}-${filename}"
-            SCREENSHOT_MD="${SCREENSHOT_MD}**${label}**\n![${label}](${url})\n\n"
+            SCREENSHOT_MD="${SCREENSHOT_MD}**${label}**"$'\n'"![${label}](${url})"$'\n\n'
           done
           current_body=$(gh pr view "$PR_NUMBER" --json body --jq '.body')
-          new_body=$(python3 - <<PYEOF
-import re, sys
-body = """$current_body"""
-replacement = "<!-- screenshots-start -->\n$(printf "$SCREENSHOT_MD")<!-- screenshots-end -->"
-new = re.sub(r'<!-- screenshots-start -->.*?<!-- screenshots-end -->', replacement, body, flags=re.DOTALL)
-print(new, end="")
-PYEOF
-          )
+          new_body=$(BODY="$current_body" SCREENSHOTS="$SCREENSHOT_MD" python3 -c '
+import re, os
+body = os.environ["BODY"]
+md = os.environ["SCREENSHOTS"]
+repl = "<!-- screenshots-start -->\n" + md + "<!-- screenshots-end -->"
+result = re.sub(r"<!-- screenshots-start -->.*?<!-- screenshots-end -->", repl, body, flags=re.DOTALL)
+print(result, end="")
+')
           gh pr edit "$PR_NUMBER" --body "$new_body"

@@ -56,41 +56,40 @@ jobs:
           path: playwright-report/
           retention-days: 7
 
-      - name: Post screenshot comment
+      - name: Inject screenshots into PR description
         if: github.event_name == 'pull_request'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           REPO: ${{ github.repository }}
         run: |
-          COMMENT="## Screenshots\n\n"
+          SCREENSHOT_MD=""
           for img in test-results/screenshots/*.png; do
             [ -f "$img" ] || continue
             filename=$(basename "$img")
             label="${filename%.png}"
             b64=$(base64 < "$img" | tr -d '\n')
-            # Get existing file sha if it exists (needed for updates)
             sha=$(gh api "repos/$REPO/contents/screenshots/${PR_NUMBER}-${filename}" \
               --jq '.sha' 2>/dev/null || echo "")
             if [ -n "$sha" ]; then
               gh api "repos/$REPO/contents/screenshots/${PR_NUMBER}-${filename}" \
-                -X PUT \
-                -f message="chore: update screenshot for PR #${PR_NUMBER}" \
-                -f content="$b64" \
-                -f sha="$sha" \
-                -f branch="screenshots" > /dev/null
+                -X PUT -f message="chore: update screenshot for PR #${PR_NUMBER}" \
+                -f content="$b64" -f sha="$sha" -f branch="screenshots" > /dev/null
             else
               gh api "repos/$REPO/contents/screenshots/${PR_NUMBER}-${filename}" \
-                -X PUT \
-                -f message="chore: add screenshot for PR #${PR_NUMBER}" \
-                -f content="$b64" \
-                -f branch="screenshots" > /dev/null
+                -X PUT -f message="chore: add screenshot for PR #${PR_NUMBER}" \
+                -f content="$b64" -f branch="screenshots" > /dev/null
             fi
             url="https://raw.githubusercontent.com/${REPO}/screenshots/screenshots/${PR_NUMBER}-${filename}"
-            COMMENT="${COMMENT}**${label}**\n![${label}](${url})\n\n"
+            SCREENSHOT_MD="${SCREENSHOT_MD}**${label}**\n![${label}](${url})\n\n"
           done
-          # Delete any previous screenshot comment from this bot
-          existing=$(gh api "repos/$REPO/issues/${PR_NUMBER}/comments" \
-            --jq '.[] | select(.body | startswith("## Screenshots")) | .id' | head -1)
-          [ -n "$existing" ] && gh api "repos/$REPO/issues/comments/$existing" -X DELETE
-          gh pr comment "$PR_NUMBER" --body "$(printf "$COMMENT")"
+          current_body=$(gh pr view "$PR_NUMBER" --json body --jq '.body')
+          new_body=$(python3 - <<PYEOF
+import re, sys
+body = """$current_body"""
+replacement = "<!-- screenshots-start -->\n$(printf "$SCREENSHOT_MD")<!-- screenshots-end -->"
+new = re.sub(r'<!-- screenshots-start -->.*?<!-- screenshots-end -->', replacement, body, flags=re.DOTALL)
+print(new, end="")
+PYEOF
+          )
+          gh pr edit "$PR_NUMBER" --body "$new_body"

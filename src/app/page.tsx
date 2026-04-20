@@ -260,7 +260,7 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="border-t border-border">
         <div className="mx-auto max-w-5xl px-6 py-8 text-center text-xs text-text-muted">
-          <p>Built with Next.js, Tailwind, and too much coffee.</p>
+          <p>Built with Next.js, Tailwind, and too much Red Bull.</p>
         </div>
       </footer>
     </div>

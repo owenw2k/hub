@@ -35,6 +35,8 @@ def gh_api(method: str, path: str, payload: dict | None = None) -> dict:
     except urllib.error.HTTPError as e:
         if e.code == 404:
             return {}
+        body = e.read().decode("utf-8", errors="replace")
+        print(f"GitHub API error {e.code} on {method} {path}: {body}", file=sys.stderr)
         raise
 
 
@@ -50,7 +52,7 @@ def main() -> None:
         content = base64.b64encode(img.read_bytes()).decode()
         api_path = f"repos/{repo}/contents/screenshots/{pr_number}-{filename}"
 
-        existing = gh_api("GET", api_path)
+        existing = gh_api("GET", f"{api_path}?ref=screenshots")
         sha = existing.get("sha")
 
         payload: dict = {

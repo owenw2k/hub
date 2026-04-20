@@ -33,4 +33,9 @@ async function captureScreenshots() {
   console.log("Screenshots captured in test-results/screenshots/");
 }
 
-captureScreenshots().catch(console.error);
+captureScreenshots()
+  .then(() => process.exit(0))
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });

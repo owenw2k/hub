@@ -43,7 +43,7 @@ jobs:
           pnpm start &
           SERVER_PID=$!
           until curl -sf http://localhost:3000 > /dev/null; do sleep 1; done
-          pnpm screenshots
+          timeout 60 pnpm screenshots
           kill $SERVER_PID && wait $SERVER_PID 2>/dev/null || true
 
       - name: Playwright tests

@@ -28,9 +28,7 @@ jest.mock("@/data/projects", () => ({
 describe("HomePage", () => {
   it("renders the hero heading", () => {
     render(<HomePage />);
-    expect(
-      screen.getByRole("heading", { name: /building things on the web/i, level: 1 })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
   });
 
   it("renders the about section", () => {

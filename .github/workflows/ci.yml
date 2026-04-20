@@ -66,26 +66,7 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           REPO: ${{ github.repository }}
         run: |
-          SCREENSHOT_MD=""
-          for img in pr-screenshots/*.png; do
-            [ -f "$img" ] || continue
-            filename=$(basename "$img")
-            label="${filename%.png}"
-            b64=$(base64 < "$img" | tr -d '\n')
-            sha=$(gh api "repos/$REPO/contents/screenshots/${PR_NUMBER}-${filename}" \
-              --jq '.sha' 2>/dev/null || echo "")
-            if [ -n "$sha" ]; then
-              gh api "repos/$REPO/contents/screenshots/${PR_NUMBER}-${filename}" \
-                -X PUT -f message="chore: update screenshot for PR #${PR_NUMBER}" \
-                -f content="$b64" -f sha="$sha" -f branch="screenshots" > /dev/null
-            else
-              gh api "repos/$REPO/contents/screenshots/${PR_NUMBER}-${filename}" \
-                -X PUT -f message="chore: add screenshot for PR #${PR_NUMBER}" \
-                -f content="$b64" -f branch="screenshots" > /dev/null
-            fi
-            url="https://raw.githubusercontent.com/${REPO}/screenshots/screenshots/${PR_NUMBER}-${filename}"
-            SCREENSHOT_MD="${SCREENSHOT_MD}**${label}**"$'\n'"![${label}](${url})"$'\n\n'
-          done
+          SCREENSHOT_MD=$(python3 scripts/upload-screenshots.py)
           current_body=$(gh pr view "$PR_NUMBER" --json body --jq '.body')
           new_body=$(BODY="$current_body" SCREENSHOTS="$SCREENSHOT_MD" python3 scripts/inject-screenshots.py)
           gh pr edit "$PR_NUMBER" --body "$new_body"

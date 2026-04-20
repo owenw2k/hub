@@ -67,7 +67,7 @@ jobs:
           REPO: ${{ github.repository }}
         run: |
           SCREENSHOT_MD=""
-          for img in test-results/screenshots/*.png; do
+          for img in pr-screenshots/*.png; do
             [ -f "$img" ] || continue
             filename=$(basename "$img")
             label="${filename%.png}"

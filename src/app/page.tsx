@@ -1,4 +1,4 @@
-import { ExternalLink, Mail } from "lucide-react";
+import { Download, ExternalLink, Mail } from "lucide-react";
 
 import { DarkModeToggle } from "@/components/DarkModeToggle";
 import { ProjectCard } from "@/components/ProjectCard";
@@ -12,7 +12,7 @@ import type { LetterboxdFilm } from "@/types/letterboxd";
 const films = letterboxdData.films as LetterboxdFilm[];
 
 /**
- * Homepage — hero, projects, infrastructure, recently watched, and contact.
+ * Homepage: hero, projects, infrastructure, recently watched, and contact.
  */
 export default function HomePage() {
   return (
@@ -47,7 +47,7 @@ export default function HomePage() {
               on the web.
             </h1>
             <p className="mt-8 max-w-2xl text-lg leading-relaxed text-text-muted">
-              I like working across the full stack — from database schemas to UI details. Currently
+              I like working across the full stack, from database schemas to UI details. Currently
               building a blog, a travel map, and whatever else seems interesting.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
@@ -75,8 +75,39 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Projects — surface tint to break up the background */}
-        <section aria-labelledby="projects-heading" className="bg-surface/60 py-24">
+        {/* About + Resume */}
+        <section aria-labelledby="about-heading" className="bg-surface/60 py-24">
+          <div className="mx-auto max-w-5xl px-6">
+            <h2
+              id="about-heading"
+              className="font-heading text-3xl font-semibold text-text-primary"
+            >
+              About
+            </h2>
+            <div className="mt-6 max-w-2xl space-y-4 text-lg leading-relaxed text-text-muted">
+              <p>
+                I&apos;m a software engineer who enjoys building things end-to-end: writing the
+                schema, standing up the API, and sweating the UI details. I care about code that is
+                easy to read, systems that are easy to reason about, and products that are actually
+                pleasant to use.
+              </p>
+              <p>
+                Outside of work I&apos;m usually watching films, planning the next trip, or
+                tinkering with a side project that probably won&apos;t ship. This site is one of the
+                ones that did.
+              </p>
+            </div>
+            <div className="mt-8">
+              <ButtonLink href="/resume.pdf" download size="sm">
+                <Download className="mr-1.5 h-4 w-4" />
+                Download resume
+              </ButtonLink>
+            </div>
+          </div>
+        </section>
+
+        {/* Projects */}
+        <section aria-labelledby="projects-heading" className="py-24">
           <div className="mx-auto max-w-5xl px-6">
             <div className="flex items-baseline gap-3">
               <h2
@@ -176,7 +207,7 @@ export default function HomePage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex flex-col gap-2"
-                    aria-label={`${film.title} (${film.year}) — ${formatRating(film.rating)}`}
+                    aria-label={`${film.title} (${film.year}), ${formatRating(film.rating)}`}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
@@ -204,7 +235,7 @@ export default function HomePage() {
               Say hello
             </h2>
             <p className="mt-4 max-w-lg text-lg leading-relaxed text-text-muted">
-              Questions, ideas, or just want to say hi — my inbox is open.
+              Questions, ideas, or just want to say hi. My inbox is open.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="mailto:owenw2k@gmail.com" size="sm">

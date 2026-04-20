@@ -22,7 +22,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Owen W — Projects",
+  title: "Owen W | Projects",
   description: "Personal homepage and project showcase.",
 };
 

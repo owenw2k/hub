@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 /**
- * 404 page — shown for any route that doesn't exist.
+ * 404 page, shown for any route that doesn't exist.
  */
 export default function NotFound() {
   return (

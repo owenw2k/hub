@@ -12,7 +12,7 @@ import type { LetterboxdFilm } from "@/types/letterboxd";
 const films = letterboxdData.films as LetterboxdFilm[];
 
 /**
- * Homepage — hero, projects, infrastructure, recently watched, and contact.
+ * Homepage: hero, projects, infrastructure, recently watched, and contact.
  */
 export default function HomePage() {
   return (
@@ -47,7 +47,7 @@ export default function HomePage() {
               on the web.
             </h1>
             <p className="mt-8 max-w-2xl text-lg leading-relaxed text-text-muted">
-              I like working across the full stack — from database schemas to UI details. Currently
+              I like working across the full stack, from database schemas to UI details. Currently
               building a blog, a travel map, and whatever else seems interesting.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
@@ -86,7 +86,7 @@ export default function HomePage() {
             </h2>
             <div className="mt-6 max-w-2xl space-y-4 text-lg leading-relaxed text-text-muted">
               <p>
-                I&apos;m a software engineer who enjoys building things end-to-end — writing the
+                I&apos;m a software engineer who enjoys building things end-to-end: writing the
                 schema, standing up the API, and sweating the UI details. I care about code that is
                 easy to read, systems that are easy to reason about, and products that are actually
                 pleasant to use.
@@ -207,7 +207,7 @@ export default function HomePage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex flex-col gap-2"
-                    aria-label={`${film.title} (${film.year}) — ${formatRating(film.rating)}`}
+                    aria-label={`${film.title} (${film.year}), ${formatRating(film.rating)}`}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
@@ -235,7 +235,7 @@ export default function HomePage() {
               Say hello
             </h2>
             <p className="mt-4 max-w-lg text-lg leading-relaxed text-text-muted">
-              Questions, ideas, or just want to say hi — my inbox is open.
+              Questions, ideas, or just want to say hi. My inbox is open.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="mailto:owenw2k@gmail.com" size="sm">

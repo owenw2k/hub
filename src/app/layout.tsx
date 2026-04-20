@@ -1,5 +1,7 @@
 import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
 
+import { ThemeProvider } from "@/components/ThemeProvider";
+
 import type { Metadata } from "next";
 
 import "./globals.css";
@@ -35,7 +37,9 @@ export default function RootLayout({
       className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }

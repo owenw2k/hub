@@ -1,5 +1,6 @@
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { cva, type VariantProps } from "class-variance-authority";
+import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -55,4 +56,16 @@ function Button({
   );
 }
 
-export { Button, buttonVariants };
+/** An anchor element styled as a button. Use instead of `Button asChild` for link buttons. */
+function ButtonLink({
+  className,
+  variant = "default",
+  size = "default",
+  ...props
+}: React.AnchorHTMLAttributes<HTMLAnchorElement> & VariantProps<typeof buttonVariants>) {
+  return (
+    <a data-slot="button" className={cn(buttonVariants({ variant, size, className }))} {...props} />
+  );
+}
+
+export { Button, ButtonLink, buttonVariants };

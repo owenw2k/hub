@@ -56,6 +56,6 @@ export const infraProjects: InfraCard[] = [
     description:
       "GitHub composite action that captures element-level PR screenshots, diffs them against main-branch baselines, and injects a before/after table into the PR description.",
     githubUrl: "https://github.com/owenw2k/screenshot-action",
-    techStack: ["GitHub Actions", "Python", "Playwright", "Pillow"],
+    techStack: ["GitHub Actions", "Node.js", "Playwright", "pixelmatch"],
   },
 ];

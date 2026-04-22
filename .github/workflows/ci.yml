@@ -56,6 +56,9 @@ jobs:
           serve-command: pnpm start
           dark-mode-toggle-label: "switch to dark mode"
 
+      - name: Lighthouse
+        run: pnpm dlx @lhci/cli@0.14.x autorun
+
       - name: Stop server
         if: always()
         run: fuser -k 3000/tcp 2>/dev/null || true

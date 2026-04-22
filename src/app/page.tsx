@@ -156,7 +156,11 @@ export default function HomePage() {
         </section>
 
         {/* Behind the Scenes */}
-        <section aria-labelledby="infra-heading" className="py-24">
+        <section
+          aria-labelledby="infra-heading"
+          className="py-24"
+          data-screenshot="behind-the-scenes"
+        >
           <div className="mx-auto max-w-5xl px-6">
             <div className="flex items-baseline gap-3">
               <h2

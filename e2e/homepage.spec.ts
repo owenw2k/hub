@@ -7,9 +7,7 @@ test.describe("Homepage", () => {
     await page.goto("/");
 
     // Then all primary section headings are visible
-    await expect(
-      page.getByRole("heading", { name: /building things on the web/i, level: 1 })
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 }).first()).toBeVisible();
     await expect(page.getByRole("heading", { name: "About", level: 2 })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Projects", level: 2 })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Behind the Scenes", level: 2 })).toBeVisible();

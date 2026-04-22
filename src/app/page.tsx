@@ -27,14 +27,21 @@ export default function HomePage() {
 
       <main>
         {/* Hero */}
-        <section aria-labelledby="hero-heading" className="relative overflow-hidden">
+        <section
+          aria-labelledby="hero-heading"
+          className="relative overflow-hidden"
+          data-screenshot="hero"
+        >
           {/* Warm radial glow behind the hero */}
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_10%_20%,color-mix(in_oklch,var(--accent)_8%,transparent),transparent)]" />
           <div className="relative mx-auto max-w-5xl px-6 pb-28 pt-20">
-            {/* Initials badge */}
-            <div className="mb-8 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-accent font-heading text-xl font-bold text-white">
-              OW
-            </div>
+            {/* Avatar badge */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/mini.png"
+              alt="Owen W"
+              className="mb-8 h-14 w-14 rounded-2xl object-cover object-top shadow-md"
+            />
             <p className="mb-4 text-sm font-medium uppercase tracking-widest text-accent">
               Software engineer
             </p>
@@ -42,13 +49,13 @@ export default function HomePage() {
               id="hero-heading"
               className="font-heading text-6xl font-bold tracking-tight text-text-primary sm:text-7xl lg:text-8xl"
             >
-              Building things
+              Lorem ipsum
               <br />
-              on the web.
+              dolor sit.
             </h1>
             <p className="mt-8 max-w-2xl text-lg leading-relaxed text-text-muted">
-              I like working across the full stack, from database schemas to UI details. Currently
-              building a blog, a travel map, and whatever else seems interesting.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua ut enim ad minim.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <ButtonLink
@@ -76,38 +83,58 @@ export default function HomePage() {
         </section>
 
         {/* About + Resume */}
-        <section aria-labelledby="about-heading" className="bg-surface/60 py-24">
+        <section
+          aria-labelledby="about-heading"
+          className="bg-surface/60 py-24"
+          data-screenshot="about"
+        >
           <div className="mx-auto max-w-5xl px-6">
-            <h2
-              id="about-heading"
-              className="font-heading text-3xl font-semibold text-text-primary"
-            >
-              About
-            </h2>
-            <div className="mt-6 max-w-2xl space-y-4 text-lg leading-relaxed text-text-muted">
-              <p>
-                I&apos;m a software engineer who enjoys building things end-to-end: writing the
-                schema, standing up the API, and sweating the UI details. I care about code that is
-                easy to read, systems that are easy to reason about, and products that are actually
-                pleasant to use.
-              </p>
-              <p>
-                Outside of work I&apos;m usually watching films, planning the next trip, or
-                tinkering with a side project that probably won&apos;t ship. This site is one of the
-                ones that did.
-              </p>
-            </div>
-            <div className="mt-8">
-              <ButtonLink href="/resume.pdf" download size="sm">
-                <Download className="mr-1.5 h-4 w-4" />
-                Download resume
-              </ButtonLink>
+            <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:gap-16">
+              {/* Photo */}
+              <div className="shrink-0 lg:w-72">
+                <div className="overflow-hidden rounded-2xl">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/self.jpg"
+                    alt="Owen W"
+                    className="aspect-[3/4] w-full object-cover object-top"
+                  />
+                </div>
+              </div>
+
+              {/* Text */}
+              <div className="flex flex-col gap-6">
+                <h2
+                  id="about-heading"
+                  className="font-heading text-3xl font-semibold text-text-primary"
+                >
+                  About
+                </h2>
+                <div className="space-y-4 text-lg leading-relaxed text-text-muted">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </p>
+                  <p>
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                    culpa qui officia deserunt mollit anim id est laborum.
+                  </p>
+                </div>
+                <div>
+                  <ButtonLink href="/resume.pdf" download size="sm">
+                    <Download className="mr-1.5 h-4 w-4" />
+                    Download resume
+                  </ButtonLink>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Projects */}
-        <section aria-labelledby="projects-heading" className="py-24">
+        <section aria-labelledby="projects-heading" className="py-24" data-screenshot="projects">
           <div className="mx-auto max-w-5xl px-6">
             <div className="flex items-baseline gap-3">
               <h2
@@ -185,7 +212,11 @@ export default function HomePage() {
         </section>
 
         {/* Recently Watched — surface tint */}
-        <section aria-labelledby="watched-heading" className="bg-surface/60 py-24">
+        <section
+          aria-labelledby="watched-heading"
+          className="bg-surface/60 py-24"
+          data-screenshot="recently-watched"
+        >
           <div className="mx-auto max-w-5xl px-6">
             <div className="flex items-baseline gap-3">
               <h2

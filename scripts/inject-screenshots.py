@@ -13,6 +13,8 @@ import re
 body = os.environ["BODY"]
 md = os.environ["SCREENSHOTS"]
 repl = "<!-- screenshots-start -->\n" + md + "<!-- screenshots-end -->"
+
+# re.DOTALL makes . match newlines so the pattern captures multi-line screenshot blocks.
 result = re.sub(
     r"<!-- screenshots-start -->.*?<!-- screenshots-end -->",
     repl,

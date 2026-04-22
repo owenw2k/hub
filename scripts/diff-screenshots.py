@@ -5,8 +5,11 @@ with current captures. For each changed screenshot, copies both the baseline
 ({name}-before.png) and the current ({name}-after.png) to pr-screenshots-changed/
 so the PR description can render a before/after comparison.
 
+The {name}-before / {name}-after naming convention is a contract with
+upload-screenshots.py, which pairs files by that suffix to build the markdown table.
+
 Required env vars: GITHUB_TOKEN, REPO
-Input:  pr-screenshots/*.png
+Input:  pr-screenshots/*.png  (e.g. hero-light.png, hero-dark.png)
 Output: pr-screenshots-changed/{name}-before.png + {name}-after.png for each change,
         or {name}-after.png only for new sections with no baseline.
 """
@@ -28,20 +31,24 @@ _TOLERANCE = 5
 _THRESHOLD = 0.001
 
 
-def gh_api(method: str, path: str) -> dict:
+def fetch_baseline(repo: str, filename: str) -> dict:
     """
-    Make a GET request to the GitHub Contents API.
+    Fetch a baseline PNG from the screenshots branch via the GitHub Contents API.
 
-    @param method - HTTP verb (always GET here)
-    @param path - API path, e.g. "repos/owner/repo/contents/..."
-    @returns Parsed JSON response, or {} on 404
+    Baselines live at main/{filename} on the screenshots branch, written by
+    store-baselines.py on every push to main.
+
+    @param repo - GitHub repository in owner/repo format
+    @param filename - PNG filename, e.g. "hero-light.png"
+    @returns Parsed API response with a "content" key (base64 PNG), or {} if not found
     @throws urllib.error.HTTPError for non-404 errors
     """
     token = os.environ["GITHUB_TOKEN"]
+    path = f"repos/{repo}/contents/main/{filename}?ref=screenshots"
     url = f"https://api.github.com/{path}"
     req = urllib.request.Request(
         url,
-        method=method,
+        method="GET",
         headers={
             "Authorization": f"Bearer {token}",
             "Accept": "application/vnd.github+json",
@@ -55,16 +62,20 @@ def gh_api(method: str, path: str) -> dict:
         if e.code == 404:
             return {}
         body = e.read().decode("utf-8", errors="replace")
-        print(f"GitHub API error {e.code} on {method} {path}: {body}", file=sys.stderr)
+        print(f"GitHub API error {e.code} fetching baseline {filename}: {body}", file=sys.stderr)
         raise
 
 
 def images_differ(current: Path, baseline_bytes: bytes) -> bool:
     """
-    Return True if current screenshot differs meaningfully from baseline.
+    Return True if the current screenshot differs meaningfully from the baseline.
 
-    Differences smaller than _TOLERANCE per channel on fewer than _THRESHOLD
-    fraction of pixels are ignored to avoid false positives from anti-aliasing.
+    Uses Pillow's ImageChops.difference to compute a per-pixel delta image, then
+    counts pixels where any RGB channel exceeds _TOLERANCE. If that count exceeds
+    _THRESHOLD fraction of total pixels, the images are considered changed.
+
+    The tolerance absorbs sub-pixel anti-aliasing variance that produces false
+    positives on otherwise identical renders.
 
     @param current - Path to the newly captured PNG
     @param baseline_bytes - Raw bytes of the baseline PNG from the screenshots branch
@@ -87,6 +98,17 @@ def images_differ(current: Path, baseline_bytes: bytes) -> bool:
 
 
 def main() -> None:
+    """
+    Compare each captured screenshot against its main-branch baseline and copy
+    only changed or new screenshots to pr-screenshots-changed/.
+
+    For a changed screenshot named hero-light.png, produces:
+      pr-screenshots-changed/hero-light-before.png  (baseline)
+      pr-screenshots-changed/hero-light-after.png   (current)
+
+    For a new screenshot with no baseline (first PR to introduce a section),
+    produces only the -after.png so the PR still shows it without a broken before.
+    """
     repo = os.environ["REPO"]
     src = Path("pr-screenshots")
     out = Path("pr-screenshots-changed")
@@ -94,11 +116,10 @@ def main() -> None:
 
     for img in sorted(src.glob("*.png")):
         name = img.stem  # e.g. "hero-light"
-        api_path = f"repos/{repo}/contents/main/{img.name}"
-        data = gh_api("GET", f"{api_path}?ref=screenshots")
+        data = fetch_baseline(repo, img.name)
 
         if not data or "content" not in data:
-            # No baseline — new section, include after only.
+            # No baseline yet — treat as new, include after only.
             print(f"  new:     {img.name}", file=sys.stderr)
             shutil.copy(img, out / f"{name}-after.png")
             continue

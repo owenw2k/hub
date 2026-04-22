@@ -3,6 +3,10 @@
 Upload current screenshots as main-branch baselines to the screenshots branch.
 Run on every push to main so the next PR diff has an up-to-date comparison target.
 
+Baselines are stored at main/{filename} on the screenshots branch, e.g.:
+  main/hero-light.png
+  main/hero-dark.png
+
 Required env vars: GITHUB_TOKEN, REPO
 Input: pr-screenshots/*.png
 """
@@ -51,11 +55,20 @@ def gh_api(method: str, path: str, payload: dict | None = None) -> dict:
 
 
 def main() -> None:
+    """
+    Upload every PNG in pr-screenshots/ to the screenshots branch at main/{filename}.
+
+    The GitHub Contents API requires the existing file's SHA when updating — a missing
+    SHA means "create", a present SHA means "update". We GET first to retrieve it.
+    """
     repo = os.environ["REPO"]
     src = Path("pr-screenshots")
 
     for img in sorted(src.glob("*.png")):
         api_path = f"repos/{repo}/contents/main/{img.name}"
+
+        # GET the existing file to retrieve its SHA; the Contents API rejects an
+        # update request without it (returns 422 "Invalid request").
         existing = gh_api("GET", f"{api_path}?ref=screenshots")
         sha = existing.get("sha")
 

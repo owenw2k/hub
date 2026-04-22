@@ -4,8 +4,11 @@ Upload screenshots to the screenshots branch via the GitHub API, then print
 the markdown image block to stdout for injection into the PR description.
 
 Handles before/after pairs: files named {name}-before.png and {name}-after.png
-are rendered as a side-by-side table. Files with only an -after.png (new sections)
-are rendered as a single image.
+are rendered as a side-by-side table. Files with only an -after.png (new sections
+with no baseline) are rendered as a single image labelled "(new)".
+
+Files are stored at screenshots/{pr_number}-{filename} on the screenshots branch,
+namespaced by PR so multiple open PRs don't overwrite each other.
 
 Required env vars: GITHUB_TOKEN, REPO (owner/repo), PR_NUMBER
 Optional env var:  SCREENSHOT_DIR (default: pr-screenshots-changed)
@@ -58,10 +61,13 @@ def upload(img: Path, repo: str, pr_number: str) -> str:
     """
     Upload a single PNG to the screenshots branch and return its raw GitHub URL.
 
+    The GitHub Contents API requires the existing file's SHA when updating — a missing
+    SHA means "create", a present SHA means "update". We GET first to retrieve it.
+
     @param img - Path to the PNG file
     @param repo - GitHub repository in owner/repo format
-    @param pr_number - Pull request number used to namespace the file
-    @returns Raw GitHub URL for embedding in markdown
+    @param pr_number - Pull request number used to namespace the stored file
+    @returns Raw githubusercontent URL suitable for embedding in markdown
     """
     filename = img.name
     content = base64.b64encode(img.read_bytes()).decode()
@@ -83,11 +89,21 @@ def upload(img: Path, repo: str, pr_number: str) -> str:
 
 
 def main() -> None:
+    """
+    Upload all changed screenshots and print markdown to stdout.
+
+    Iterates over *-after.png files in SCREENSHOT_DIR. For each, checks whether a
+    matching *-before.png exists (written by diff-screenshots.py for changed sections).
+    Renders a two-column Before/After table for changed sections, or a single image
+    labelled "(new)" for sections with no baseline.
+
+    Prints empty string if no changed screenshots exist, leaving the PR description
+    markers in place but empty.
+    """
     repo = os.environ["REPO"]
     pr_number = os.environ["PR_NUMBER"]
     screenshot_dir = Path(os.environ.get("SCREENSHOT_DIR", "pr-screenshots-changed"))
 
-    # Collect all after-files and pair with before if present.
     after_files = sorted(screenshot_dir.glob("*-after.png"))
     if not after_files:
         print("", end="")
@@ -95,7 +111,7 @@ def main() -> None:
 
     markdown = ""
     for after_img in after_files:
-        # Strip "-after" to get the base name, e.g. "hero-light".
+        # Recover the original screenshot name, e.g. "hero-light-after" -> "hero-light".
         base_name = after_img.stem.removesuffix("-after")
         before_img = screenshot_dir / f"{base_name}-before.png"
 

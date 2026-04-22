@@ -48,6 +48,22 @@ jobs:
           timeout 60 pnpm screenshots
           fuser -k 3000/tcp 2>/dev/null || true
 
+      - name: Store screenshot baselines
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: python3 scripts/store-baselines.py
+
+      - name: Diff screenshots against baseline
+        if: github.event_name == 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          pip install -r scripts/requirements.txt --quiet
+          python3 scripts/diff-screenshots.py
+
       - name: Playwright tests
         run: pnpm test:e2e
 
@@ -65,6 +81,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           REPO: ${{ github.repository }}
+          SCREENSHOT_DIR: pr-screenshots-changed
         run: |
           SCREENSHOT_MD=$(python3 scripts/upload-screenshots.py)
           current_body=$(gh pr view "$PR_NUMBER" --json body --jq '.body')

@@ -40,7 +40,7 @@ export default function HomePage() {
             <img
               src="/mini.png"
               alt="Owen W"
-              className="mb-8 h-14 w-14 rounded-2xl object-cover object-top"
+              className="mb-8 h-14 w-14 rounded-2xl object-cover object-top shadow-md"
             />
             <p className="mb-4 text-sm font-medium uppercase tracking-widest text-accent">
               Software engineer

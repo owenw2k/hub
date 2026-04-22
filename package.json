@@ -14,6 +14,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage --passWithNoTests",
     "test:e2e": "playwright test",
+    "screenshots": "tsx scripts/capture-screenshots.ts",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -62,6 +63,7 @@
     "prettier": "^3.8.3",
     "tailwindcss": "^4",
     "ts-jest": "^29.4.9",
+    "tsx": "^4.21.0",
     "typescript": "^6.0.3"
   }
 }

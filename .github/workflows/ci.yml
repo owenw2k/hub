@@ -38,31 +38,20 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Install Playwright browsers
-        run: pnpm exec playwright install --with-deps chromium
-
-      - name: Capture screenshots
+      - name: Start server
         run: |
           pnpm start &
           until curl -sf http://localhost:3000 > /dev/null; do sleep 1; done
-          timeout 60 pnpm screenshots
-          fuser -k 3000/tcp 2>/dev/null || true
 
-      - name: Store screenshot baselines
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
-        run: python3 scripts/store-baselines.py
+      - name: PR Screenshots
+        uses: owenw2k/screenshot-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pr-number: ${{ github.event.pull_request.number }}
 
-      - name: Diff screenshots against baseline
-        if: github.event_name == 'pull_request'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
-        run: |
-          pip install -r scripts/requirements.txt --quiet
-          python3 scripts/diff-screenshots.py
+      - name: Stop server
+        if: always()
+        run: fuser -k 3000/tcp 2>/dev/null || true
 
       - name: Playwright tests
         run: pnpm test:e2e
@@ -74,16 +63,3 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 7
-
-      - name: Inject screenshots into PR description
-        if: github.event_name == 'pull_request'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          REPO: ${{ github.repository }}
-          SCREENSHOT_DIR: pr-screenshots-changed
-        run: |
-          SCREENSHOT_MD=$(python3 scripts/upload-screenshots.py)
-          current_body=$(gh pr view "$PR_NUMBER" --json body --jq '.body')
-          new_body=$(BODY="$current_body" SCREENSHOTS="$SCREENSHOT_MD" python3 scripts/inject-screenshots.py)
-          gh pr edit "$PR_NUMBER" --body "$new_body"

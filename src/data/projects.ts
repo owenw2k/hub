@@ -50,4 +50,12 @@ export const projects: ProjectCard[] = [
 ];
 
 /** Infrastructure and tooling projects shown in the "Behind the Scenes" section. */
-export const infraProjects: InfraCard[] = [];
+export const infraProjects: InfraCard[] = [
+  {
+    name: "screenshot-action",
+    description:
+      "GitHub composite action that captures element-level PR screenshots, diffs them against main-branch baselines, and injects a before/after table into the PR description.",
+    githubUrl: "https://github.com/owenw2k/screenshot-action",
+    techStack: ["GitHub Actions", "Python", "Playwright", "Pillow"],
+  },
+];

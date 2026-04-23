@@ -2,6 +2,7 @@ import { Download, ExternalLink, Mail } from "lucide-react";
 import Image from "next/image";
 
 import { DarkModeToggle } from "@/components/DarkModeToggle";
+import { GithubIcon } from "@/components/GithubIcon";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ButtonLink } from "@/components/ui/button";
 import letterboxdData from "@/data/letterboxd.json";
@@ -190,6 +191,10 @@ export default function HomePage() {
                     className="group relative flex flex-col gap-4 overflow-hidden rounded-xl border border-border bg-surface p-6 transition-all hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                   >
                     <div className="absolute left-0 top-0 h-0.5 w-full bg-gradient-to-r from-accent/50 to-transparent" />
+                    <div className="flex items-start justify-between">
+                      <project.icon className="h-7 w-7 text-accent/70" />
+                      <GithubIcon className="h-4 w-4 text-text-muted/50 transition-colors group-hover:text-text-muted" />
+                    </div>
                     <div className="flex flex-col gap-1">
                       <h3 className="font-heading text-xl font-semibold text-text-primary">
                         {project.name}
@@ -227,7 +232,9 @@ export default function HomePage() {
               >
                 Recently Watched
               </h2>
-              <span className="text-sm text-text-muted">Latest from Letterboxd.</span>
+              <span className="text-sm text-text-muted">
+                Amateur critic. No credentials, no pay. Here&apos;s what I&apos;ve been watching.
+              </span>
             </div>
             {films.length === 0 ? (
               <p className="mt-8 text-sm text-text-muted">Waiting on the scraper…</p>

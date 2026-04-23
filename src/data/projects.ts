@@ -2,6 +2,10 @@
  * Data types and content for the project showcase and infrastructure sections.
  */
 
+import { Clapperboard } from "lucide-react";
+
+import type { LucideIcon } from "lucide-react";
+
 /** A public-facing project with a live deployment. */
 export type ProjectCard = {
   /** Display name shown as the card heading. */
@@ -30,6 +34,8 @@ export type InfraCard = {
   githubUrl: string;
   /** Tech stack labels rendered as tags. */
   techStack: string[];
+  /** Lucide icon representing what the tool does. */
+  icon: LucideIcon;
 };
 
 /** Projects shown in the main showcase section. */
@@ -54,8 +60,9 @@ export const infraProjects: InfraCard[] = [
   {
     name: "screenshot-action",
     description:
-      "GitHub composite action that captures element-level PR screenshots, diffs them against main-branch baselines, and injects a before/after table into the PR description.",
+      "GitHub composite action that captures element-level PR screenshots, diffs them pixel-by-pixel against the base branch, and injects a before/after table into the PR description.",
     githubUrl: "https://github.com/owenw2k/screenshot-action",
-    techStack: ["GitHub Actions", "Node.js", "Playwright", "pixelmatch"],
+    techStack: ["GitHub Actions", "TypeScript", "Node.js", "Playwright", "pixelmatch"],
+    icon: Clapperboard,
   },
 ];

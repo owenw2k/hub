@@ -1,5 +1,6 @@
 import { BookOpen, ExternalLink } from "lucide-react";
 
+import { GithubIcon } from "@/components/GithubIcon";
 import { ButtonLink } from "@/components/ui/button";
 
 import type { ProjectCard as ProjectCardType } from "@/data/projects";
@@ -70,6 +71,7 @@ export const ProjectCard = ({
           target="_blank"
           rel="noopener noreferrer"
         >
+          <GithubIcon className="mr-1.5 h-3.5 w-3.5" />
           GitHub
         </ButtonLink>
         {caseStudyUrl && (

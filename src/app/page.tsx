@@ -181,9 +181,13 @@ export default function HomePage() {
             ) : (
               <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
                 {infraProjects.map((project) => (
-                  <article
+                  <a
                     key={project.name}
-                    className="group relative flex flex-col gap-4 overflow-hidden rounded-xl border border-border bg-surface p-6 transition-shadow hover:shadow-md"
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${project.name} GitHub repository`}
+                    className="group relative flex flex-col gap-4 overflow-hidden rounded-xl border border-border bg-surface p-6 transition-all hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                   >
                     <div className="absolute left-0 top-0 h-0.5 w-full bg-gradient-to-r from-accent/50 to-transparent" />
                     <div className="flex flex-col gap-1">
@@ -202,18 +206,7 @@ export default function HomePage() {
                         </span>
                       ))}
                     </div>
-                    <div className="mt-auto pt-2">
-                      <ButtonLink
-                        href={project.githubUrl}
-                        size="sm"
-                        variant="outline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        View repo
-                      </ButtonLink>
-                    </div>
-                  </article>
+                  </a>
                 ))}
               </div>
             )}

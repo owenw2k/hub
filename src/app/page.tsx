@@ -1,5 +1,6 @@
-import { Download, ExternalLink, Mail } from "lucide-react";
 import Image from "next/image";
+
+import { Download, Mail } from "lucide-react";
 
 import { DarkModeToggle } from "@/components/DarkModeToggle";
 import { GithubIcon } from "@/components/GithubIcon";
@@ -70,7 +71,7 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 aria-label="GitHub profile"
               >
-                <ExternalLink className="mr-1.5 h-4 w-4" />
+                <GithubIcon className="mr-1.5 h-4 w-4" />
                 GitHub
               </ButtonLink>
               <ButtonLink
@@ -289,7 +290,7 @@ export default function HomePage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <ExternalLink className="mr-1.5 h-4 w-4" />
+                <GithubIcon className="mr-1.5 h-4 w-4" />
                 GitHub
               </ButtonLink>
             </div>

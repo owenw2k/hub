@@ -43,6 +43,7 @@ export const projects: ProjectCard[] = [
   {
     name: "Blog",
     description: "Personal blog with writing on software, design, and building things.",
+    liveUrl: "#",
     githubUrl: "https://github.com/owenw2k/blog",
     techStack: ["Next.js", "Tailwind", "AWS Lambda", "DynamoDB", "MDX"],
   },
@@ -50,6 +51,7 @@ export const projects: ProjectCard[] = [
     name: "Travel Buddy",
     description:
       "Interactive map to track the regions you've visited, driven through, and lived in.",
+    liveUrl: "#",
     githubUrl: "https://github.com/owenw2k/travel-buddy",
     techStack: ["Next.js", "Tailwind", "Zustand", "react-simple-maps", "IndexedDB"],
   },

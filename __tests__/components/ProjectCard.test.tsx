@@ -32,21 +32,21 @@ describe("ProjectCard", () => {
     );
   });
 
-  it("renders the live demo link when liveUrl is provided", () => {
+  it("renders a stretched card link to liveUrl when provided", () => {
     const card = createProjectCard({ liveUrl: "https://example.com" });
     render(<ProjectCard {...card} />);
 
-    expect(screen.getByRole("link", { name: /live demo/i })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /open test project/i })).toHaveAttribute(
       "href",
       "https://example.com"
     );
   });
 
-  it("does not render live demo link when liveUrl is absent", () => {
+  it("does not render a card link when liveUrl is absent", () => {
     const card = createProjectCard({ liveUrl: undefined });
     render(<ProjectCard {...card} />);
 
-    expect(screen.queryByRole("link", { name: /live demo/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /open test project/i })).not.toBeInTheDocument();
   });
 
   it("renders the case study link when caseStudyUrl is provided", () => {

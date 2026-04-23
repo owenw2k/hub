@@ -6,30 +6,27 @@ import { createProjectCard } from "../factories/createProjectCard";
 
 describe("ProjectCard", () => {
   it("renders the project name and description", () => {
-    const card = createProjectCard({ name: "Blog", description: "My personal blog." });
+    const card = createProjectCard();
     render(<ProjectCard {...card} />);
 
-    expect(screen.getByRole("heading", { name: "Blog" })).toBeInTheDocument();
-    expect(screen.getByText("My personal blog.")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: card.name })).toBeInTheDocument();
+    expect(screen.getByText(card.description)).toBeInTheDocument();
   });
 
   it("renders all tech stack tags", () => {
     const card = createProjectCard({ techStack: ["Next.js", "DynamoDB", "Lambda"] });
     render(<ProjectCard {...card} />);
 
-    expect(screen.getByText("Next.js")).toBeInTheDocument();
-    expect(screen.getByText("DynamoDB")).toBeInTheDocument();
-    expect(screen.getByText("Lambda")).toBeInTheDocument();
+    for (const tag of card.techStack) {
+      expect(screen.getByText(tag)).toBeInTheDocument();
+    }
   });
 
   it("renders the GitHub link", () => {
-    const card = createProjectCard({ githubUrl: "https://github.com/owenw2k/blog" });
+    const card = createProjectCard();
     render(<ProjectCard {...card} />);
 
-    expect(screen.getByRole("link", { name: /github/i })).toHaveAttribute(
-      "href",
-      "https://github.com/owenw2k/blog"
-    );
+    expect(screen.getByRole("link", { name: /github/i })).toHaveAttribute("href", card.githubUrl);
   });
 
   it("renders a stretched card link to liveUrl when provided", () => {
@@ -38,7 +35,7 @@ describe("ProjectCard", () => {
 
     expect(screen.getByRole("link", { name: /open test project/i })).toHaveAttribute(
       "href",
-      "https://example.com"
+      card.liveUrl
     );
   });
 
@@ -55,7 +52,7 @@ describe("ProjectCard", () => {
 
     expect(screen.getByRole("link", { name: /case study/i })).toHaveAttribute(
       "href",
-      "https://blog.example.com/case-study"
+      card.caseStudyUrl
     );
   });
 

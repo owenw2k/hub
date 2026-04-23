@@ -1,4 +1,5 @@
 import { Download, ExternalLink, Mail } from "lucide-react";
+import Image from "next/image";
 
 import { DarkModeToggle } from "@/components/DarkModeToggle";
 import { ProjectCard } from "@/components/ProjectCard";
@@ -36,11 +37,13 @@ export default function HomePage() {
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_10%_20%,color-mix(in_oklch,var(--accent)_8%,transparent),transparent)]" />
           <div className="relative mx-auto max-w-5xl px-6 pb-28 pt-20">
             {/* Avatar badge */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src="/mini.png"
               alt="Owen W"
-              className="mb-8 h-14 w-14 rounded-2xl object-cover object-top shadow-md"
+              width={56}
+              height={56}
+              priority
+              className="mb-8 rounded-2xl object-cover object-top shadow-md"
             />
             <p className="mb-4 text-sm font-medium uppercase tracking-widest text-accent">
               Software engineer
@@ -97,6 +100,8 @@ export default function HomePage() {
                   <img
                     src="/self.jpg"
                     alt="Owen W"
+                    width={576}
+                    height={768}
                     className="aspect-[3/4] w-full object-cover object-top"
                   />
                 </div>

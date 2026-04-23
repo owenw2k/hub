@@ -2,7 +2,7 @@
  * Data types and content for the project showcase and infrastructure sections.
  */
 
-import { Clapperboard } from "lucide-react";
+import { Camera } from "lucide-react";
 
 import type { LucideIcon } from "lucide-react";
 
@@ -63,6 +63,6 @@ export const infraProjects: InfraCard[] = [
       "GitHub composite action that captures element-level PR screenshots, diffs them pixel-by-pixel against the base branch, and injects a before/after table into the PR description.",
     githubUrl: "https://github.com/owenw2k/screenshot-action",
     techStack: ["GitHub Actions", "TypeScript", "Node.js", "Playwright", "pixelmatch"],
-    icon: Clapperboard,
+    icon: Camera,
   },
 ];

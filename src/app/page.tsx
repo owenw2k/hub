@@ -169,7 +169,7 @@ export default function HomePage() {
               >
                 Behind the Scenes
               </h2>
-              <span className="text-sm text-text-muted">Scrapers, workers, cron jobs.</span>
+              <span className="text-sm text-text-muted">Tools, actions, and infrastructure.</span>
             </div>
             {infraProjects.length === 0 ? (
               <p className="mt-8 text-sm text-text-muted">Nothing to show yet. Check back soon.</p>

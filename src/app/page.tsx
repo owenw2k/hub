@@ -234,7 +234,8 @@ export default function HomePage() {
                 Recently Watched
               </h2>
               <span className="text-sm text-text-muted">
-                Amateur critic. No credentials, no pay. Here&apos;s what I&apos;ve been watching.
+                Unpaid amateur film critic. Here&apos;s what I&apos;ve been watching, if you&apos;re
+                curious.
               </span>
             </div>
             {films.length === 0 ? (

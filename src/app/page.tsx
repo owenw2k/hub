@@ -1,6 +1,5 @@
-import Image from "next/image";
-
 import { Download, Mail } from "lucide-react";
+import Image from "next/image";
 
 import { DarkModeToggle } from "@/components/DarkModeToggle";
 import { GithubIcon } from "@/components/GithubIcon";

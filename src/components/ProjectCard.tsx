@@ -1,4 +1,5 @@
 import { BookOpen } from "lucide-react";
+import { type ReactElement } from "react";
 
 import { GithubIcon } from "@/components/GithubIcon";
 import { ButtonLink } from "@/components/ui/button";
@@ -23,7 +24,7 @@ export const ProjectCard = ({
   caseStudyUrl,
   techStack,
   screenshot,
-}: Props) => (
+}: Props): ReactElement => (
   <article className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-surface transition-all hover:-translate-y-0.5 hover:shadow-lg">
     {liveUrl && (
       <a

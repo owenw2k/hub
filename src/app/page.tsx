@@ -218,7 +218,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Recently Watched — surface tint */}
+        {/* Recently Watched: surface tint */}
         <section
           aria-labelledby="watched-heading"
           className="bg-surface/60 py-24"

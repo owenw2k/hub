@@ -6,10 +6,10 @@ import { createInfraCard } from "./factories/createInfraCard";
 
 import type { LetterboxdFilm } from "@/types/letterboxd";
 
-// letterboxd.json is read at module level in page.tsx, so the mock must return a plain value —
-// a getter closure would reference module-level variables before they are initialized due to
-// Jest's mock hoisting. Assertions derive the title from jest.requireMock to avoid repeating
-// the literal string.
+// letterboxd.json is read at module level in page.tsx, so the mock must return a plain value,
+// not a getter closure. A getter would reference module-level variables before they are
+// initialized due to Jest's mock hoisting. Assertions derive the title from jest.requireMock
+// to avoid repeating the literal string.
 jest.mock("@/data/letterboxd.json", () => ({
   films: [
     {

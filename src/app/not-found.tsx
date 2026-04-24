@@ -1,9 +1,10 @@
 import Link from "next/link";
+import { type ReactElement } from "react";
 
 /**
  * 404 page, shown for any route that doesn't exist.
  */
-export default function NotFound() {
+export default function NotFound(): ReactElement {
   return (
     <div className="flex flex-1 flex-col items-center justify-center px-6 py-32 text-center">
       <p className="font-heading text-6xl font-bold text-accent">404</p>

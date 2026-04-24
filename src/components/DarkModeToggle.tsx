@@ -2,7 +2,7 @@
 
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { type ReactElement, useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 
@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
  * Renders a placeholder during SSR to avoid hydration mismatch,
  * since the resolved theme is only known on the client.
  */
-export const DarkModeToggle = () => {
+export const DarkModeToggle = (): ReactElement => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 

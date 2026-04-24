@@ -9,7 +9,3 @@
 _Captured automatically by CI — push a commit to populate._
 
 <!-- screenshots-end -->
-
-## Checklist
-
-- [ ] No secrets committed

@@ -11,6 +11,20 @@ Personal homepage and project showcase. Built with Next.js, Tailwind CSS, and sh
 - **Components:** [shadcn/ui](https://ui.shadcn.com)
 - **Testing:** Jest + React Testing Library (unit), Playwright + axe-core (e2e)
 
+## Architecture
+
+```mermaid
+graph LR
+    subgraph Build
+        P[projects.ts] --> NX[Next.js build]
+        L[letterboxd.json] --> NX
+        NX --> S[Static HTML / JS / CSS]
+    end
+
+    S --> V[Vercel CDN]
+    Browser[Browser] --> V
+```
+
 ## Development
 
 ```bash

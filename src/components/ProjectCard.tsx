@@ -1,5 +1,6 @@
-import { BookOpen, ExternalLink } from "lucide-react";
+import { BookOpen } from "lucide-react";
 
+import { GithubIcon } from "@/components/GithubIcon";
 import { ButtonLink } from "@/components/ui/button";
 
 import type { ProjectCard as ProjectCardType } from "@/data/projects";
@@ -8,6 +9,9 @@ type Props = ProjectCardType;
 
 /**
  * Displays a project card with screenshot, name, description, tech stack tags, and links.
+ *
+ * The whole card is clickable to the live URL when one is provided. GitHub and case study
+ * buttons remain independently clickable on top via z-index.
  *
  * @param props - ProjectCard data.
  */
@@ -20,7 +24,17 @@ export const ProjectCard = ({
   techStack,
   screenshot,
 }: Props) => (
-  <article className="group flex flex-col overflow-hidden rounded-xl border border-border bg-surface transition-all hover:-translate-y-0.5 hover:shadow-lg">
+  <article className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-surface transition-all hover:-translate-y-0.5 hover:shadow-lg">
+    {liveUrl && (
+      <a
+        href={liveUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute inset-0 z-0"
+        aria-label={`Open ${name}`}
+      />
+    )}
+
     {/* Screenshot or gradient placeholder */}
     <div className="aspect-[16/9] w-full overflow-hidden">
       {screenshot ? (
@@ -56,13 +70,7 @@ export const ProjectCard = ({
         ))}
       </div>
 
-      <div className="mt-auto flex flex-wrap gap-2 pt-2">
-        {liveUrl && (
-          <ButtonLink href={liveUrl} size="sm" target="_blank" rel="noopener noreferrer">
-            <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
-            Live demo
-          </ButtonLink>
-        )}
+      <div className="relative z-10 mt-auto flex flex-wrap gap-2 pt-2">
         <ButtonLink
           href={githubUrl}
           size="sm"
@@ -70,6 +78,7 @@ export const ProjectCard = ({
           target="_blank"
           rel="noopener noreferrer"
         >
+          <GithubIcon className="mr-1.5 h-3.5 w-3.5" />
           GitHub
         </ButtonLink>
         {caseStudyUrl && (

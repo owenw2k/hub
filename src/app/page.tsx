@@ -1,7 +1,8 @@
-import { Download, ExternalLink, Mail } from "lucide-react";
+import { Download, Mail } from "lucide-react";
 import Image from "next/image";
 
 import { DarkModeToggle } from "@/components/DarkModeToggle";
+import { GithubIcon } from "@/components/GithubIcon";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ButtonLink } from "@/components/ui/button";
 import letterboxdData from "@/data/letterboxd.json";
@@ -69,7 +70,7 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 aria-label="GitHub profile"
               >
-                <ExternalLink className="mr-1.5 h-4 w-4" />
+                <GithubIcon className="mr-1.5 h-4 w-4" />
                 GitHub
               </ButtonLink>
               <ButtonLink
@@ -181,11 +182,19 @@ export default function HomePage() {
             ) : (
               <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
                 {infraProjects.map((project) => (
-                  <article
+                  <a
                     key={project.name}
-                    className="group relative flex flex-col gap-4 overflow-hidden rounded-xl border border-border bg-surface p-6 transition-shadow hover:shadow-md"
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${project.name} GitHub repository`}
+                    className="group relative flex flex-col gap-4 overflow-hidden rounded-xl border border-border bg-surface p-6 transition-all hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                   >
                     <div className="absolute left-0 top-0 h-0.5 w-full bg-gradient-to-r from-accent/50 to-transparent" />
+                    <div className="flex items-start justify-between">
+                      <project.icon className="h-7 w-7 text-accent/70" />
+                      <GithubIcon className="h-4 w-4 text-text-muted/50 transition-colors group-hover:text-text-muted" />
+                    </div>
                     <div className="flex flex-col gap-1">
                       <h3 className="font-heading text-xl font-semibold text-text-primary">
                         {project.name}
@@ -202,18 +211,7 @@ export default function HomePage() {
                         </span>
                       ))}
                     </div>
-                    <div className="mt-auto pt-2">
-                      <ButtonLink
-                        href={project.githubUrl}
-                        size="sm"
-                        variant="outline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        View repo
-                      </ButtonLink>
-                    </div>
-                  </article>
+                  </a>
                 ))}
               </div>
             )}
@@ -234,7 +232,10 @@ export default function HomePage() {
               >
                 Recently Watched
               </h2>
-              <span className="text-sm text-text-muted">Latest from Letterboxd.</span>
+              <span className="text-sm text-text-muted">
+                Unpaid amateur film critic. Here&apos;s what I&apos;ve been watching, if you&apos;re
+                curious.
+              </span>
             </div>
             {films.length === 0 ? (
               <p className="mt-8 text-sm text-text-muted">Waiting on the scraper…</p>
@@ -289,7 +290,7 @@ export default function HomePage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <ExternalLink className="mr-1.5 h-4 w-4" />
+                <GithubIcon className="mr-1.5 h-4 w-4" />
                 GitHub
               </ButtonLink>
             </div>

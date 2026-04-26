@@ -6,6 +6,6 @@
 
 <!-- screenshots-start -->
 
-_Captured automatically by CI — push a commit to populate._
+_Captured automatically by CI - push a commit to populate._
 
 <!-- screenshots-end -->

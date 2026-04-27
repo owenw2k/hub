@@ -51,10 +51,9 @@ export const projects: ProjectCard[] = [
     name: "Travel Buddy",
     description:
       "Interactive map to track the regions you've visited, driven through, and lived in.",
-    liveUrl: "https://travel-buddy-sooty-ten.vercel.app/",
+    liveUrl: "#",
     githubUrl: "https://github.com/owenw2k/travel-buddy",
-    techStack: ["Next.js", "Tailwind", "Zustand", "react-simple-maps", "localStorage"],
-    screenshot: "/travel-buddy.png",
+    techStack: ["Next.js", "Tailwind", "Zustand", "react-simple-maps", "IndexedDB"],
   },
 ];
 

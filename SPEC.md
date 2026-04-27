@@ -53,6 +53,11 @@ Initial cards: none yet. First candidate: Letterboxd review scraper (future).
 - Social links: GitHub (required), others optional
 - No phone number or address — email only
 
+### Buy Me a Coffee
+
+- Embedded or linked [Buy Me a Coffee](https://buymeacoffee.com) button/widget
+- Keep it subtle — not the focus of the page
+
 ## Other Links
 
 - GitHub profile

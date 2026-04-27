@@ -45,7 +45,7 @@ export const projects: ProjectCard[] = [
     description: "Personal blog with writing on software, design, and building things.",
     liveUrl: "#",
     githubUrl: "https://github.com/owenw2k/blog",
-    techStack: ["Next.js", "Tailwind", "AWS Lambda", "DynamoDB", "MDX"],
+    techStack: ["Next.js", "Tailwind", "Vercel Postgres", "Vercel KV", "MDX"],
   },
   {
     name: "Travel Buddy",

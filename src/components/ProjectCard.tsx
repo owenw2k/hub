@@ -31,7 +31,7 @@ export const ProjectCard = ({
         href={liveUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-[1]"
         aria-label={`Open ${name}`}
       />
     )}
